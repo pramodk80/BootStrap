@@ -1,0 +1,88 @@
+<html>
+<head>
+
+<title>
+
+	My Rest Example
+
+</title>
+
+
+<script language="javascript" type="text/javascript">
+
+var request = null;
+
+
+function createRequest() {
+
+	request = new XMLHttpRequest();
+	if (request == null)
+	alert("Error creating request object!");
+}
+
+
+function getMessage() {
+		createRequest() ;
+		//var url = "http://localhost:8080/myRestProject/myRest/UserService/userList";
+		var url = "http://10.44.57.34:8080/myRestProject/myRest/UserService/userList";
+		request.onreadystatechange = handleResponse;
+		request.open("GET", url, true);
+		request.send(null);
+}
+
+
+function handleResponse() {
+
+	if (request.readyState == 4 && request.status == 200) {
+  	var res = request.responseText;
+
+		alert(res);
+
+		var obj = JSON.parse(res);
+
+		var i ;
+
+
+		 for(i=0;i<=obj.user.length;i++) {
+			document.getElementById("id").value = obj.user[i].id;
+			document.getElementById("name").value = obj.user[i].name;
+			document.getElementById("profession").value = obj.user[i].professoin;
+		}
+	}
+}
+
+</script>
+ </head>
+
+
+ <body>
+
+ User Id : <input type="text" id="id"/>
+ <br>
+
+ User Name : <input type="text" id="name"/>
+  <br>
+
+ Profession : <input type="text" id="profession"/>
+  <br>
+
+ <div id="id01"></div>
+  	<input type="button" value="getUSerDetails" onClick="getMessage()"/>
+ <br>
+
+ </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
